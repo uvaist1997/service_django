@@ -1,0 +1,30 @@
+    <thead>
+       <tr>
+        <th>#</th>
+        <th>Device Name</th>
+        <th>Device Code</th>
+        <th>Type</th>
+    </tr>
+    </thead>
+
+    <tbody>
+{% for instance in instances %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {{ instance.DeviceName }}
+        </td>
+        <td>
+            {{ instance.DeviceCode}}
+        </td>
+        <td>
+            {{ instance.Type}}
+        </td>
+
+    </tr>
+{% endfor %}                                       
+
+
+    </tbody>

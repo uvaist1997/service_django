@@ -1,0 +1,40 @@
+ <!-- {% load main_template_tags %} -->
+
+{% load main_template_tags %}
+ <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ProductID</th>
+                                            <th>Product Name</th>
+                                            <th>WarehouseId</th>
+                                            <th>Stock</th>
+                                            <th style="width: 82px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for instance in user_view %}
+                                    
+                                        <tr>
+                                            <td>
+                                                {{ forloop.counter}}
+                                            </td>
+                                            <td>
+                                                {{ instance.ProductId}}
+                                            </td>
+                                            <td>
+                                                {{instance|warehouse_product_name}}
+                                            </td>
+                                            <td>
+                                                {{ instance.WarehouseId }}
+                                            </td>
+                                            <td>
+                                                {{ instance.Stock }}
+                                            </td>
+                                            <td>
+                                                <a data-id="" href="{% url 'users:delete_warehouse_stock' pk=instance.pk %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-icon action-button remove"> <i class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>

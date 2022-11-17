@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+<!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Reports</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                                            <li class="breadcrumb-item active">{{title}}</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">{{title}}</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+
+                                    <div class="row mb-12">
+  
+                                  
+                                             <div class="customer-status col-md-2">     
+                                                <label>Users</label>         
+
+                                                         <select id="selectize_customer" class="selectize1">
+                   
+                                                            {% for i in user_instance %}
+                                                            <option value = "{{i.id}}" >{{i.username}}</option>
+                                                            {% endfor %} 
+                                                        </select>                                                     
+                                            </div>     
+                                            <div class="col-md-2">
+                                                <label>Type</label>
+                                                <select id="id_type" class="required form-control select">
+                                                    <option>----</option>
+                                                    <option>Server</option>
+                                                    <option>Client</option>
+                                                </select>
+
+
+                                            </div>   
+                                            <div class="mr-3 d-flex align-items-center form-check form-switch">
+                                                    <input type="checkbox" class="form-check-input" id="show_TrialVersion">
+                                                    <label class="form-check-label" for="show_TrialVersion">Filter With TrialVersion</label>
+                                                </div>
+
+                                            <div class="TrialVersion_check mr-3 mt-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" id="customRadio1" name="customRadio" class="form-check-input">
+                                                        <label class="form-check-label" for="customRadio1">True</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input type="radio" id="customRadio2" name="customRadio" class="form-check-input">
+                                                        <label class="form-check-label" for="customRadio2">False</label>
+                                                    </div>
+                                                </div>
+
+                                            <div class="row align-items-center col-md-2">
+                                               <!-- Large modal -->
+                                                <button type="button" id="button-submit" class="btn btn-blue" data-toggle="modal" data-target="#bs-example-modal-lg">Submit</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <table class="table table-hover m-0 table-centered dt-responsive nowrap w-100" id="order_report">
+                     
+                                    </table>
+                                </div>
+                             
+                            </div><!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+{% endblock %}
+
+{% block static %}
+<script type="text/javascript">
+    console.log("DDDDDDDDDDDD")
+    $(document).ready(function(){
+        $('.selectize1').selectize({});
+     });
+
+     $(document).on('keyup change', '#selectize_customer', function(){
+        var pk = $(this).val();          
+        if (!pk) {
+            pk = ""
+        }
+
+
+    });
+    $(document).on('click', '#button-submit', function(){
+        get_company_list()
+
+
+    });
+
+    function get_company_list() {
+        var TrialVersion_True = "false"
+        var TrialVersion_False = "false"
+
+        if(document.getElementById('show_TrialVersion').checked){
+            TrialVersion_True = document.getElementById('customRadio1').checked
+            TrialVersion_False = document.getElementById('customRadio2').checked
+        }
+
+        var type = $('#id_type option').filter(':selected').val() 
+        console.log(TrialVersion_False,'TrialV',type,'ersion_False',TrialVersion_True,'TrialVersion_True')
+
+        var user_id = $("#selectize_customer").val()
+        var url = "{% url 'web:get_company_list' %}"
+        if (user_id != '' && user_id != null && user_id != '' && user_id != null) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                data: {
+                    id: user_id,
+                    TrialVersion_True: TrialVersion_True,
+                    TrialVersion_False: TrialVersion_False,
+                    type: type,
+                },
+                success: function(data) {
+                    var status = data['status'];
+                    var comapny_list = data['comapny_list'];
+                    if (status == "true") {
+                        $('#order_report').html(comapny_list);
+                    } else {
+                        console.log('kkk')
+                        var nothing_found = "<p class='text-center p-30'>Not found</p>";
+                        $('#order_report').html(nothing_found);
+                    }
+                },
+                error: function(data) {
+                }
+            });
+        }
+    }
+    // ========
+    $(document).on('keyup change', '#show_TrialVersion', function(){
+        is_trail = $(this).prop("checked");
+        if (is_trail == true) {
+            $(".TrialVersion_check").css("display","inline-block")
+        }else{
+            $(".TrialVersion_check").css("display","none")
+
+        }
+        console.log(is_trail)
+    });
+
+</script>
+<style type="text/css">
+    .TrialVersion_check{
+        display: none;
+    }
+</style>
+        {% endblock %}

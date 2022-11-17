@@ -1,0 +1,71 @@
+{% extends "registration/auth_base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+<div class="auth-fluid-form-box">
+                <div class="d-flex h-100">
+                    <div class="card-body">
+
+                        <!-- Logo -->
+                        <div class="auth-brand text-center text-lg-left">
+                            <div class="auth-logo">
+                               <!--  <a href="index.html" class="logo logo-dark text-center">
+                                    <span class="logo-lg">
+                                        <img src="{% static 'images/tran-logo.png' %}" alt="" height="22">
+                                    </span>
+                                </a> -->
+            
+                                <!-- <a href="index.html" class="logo logo-light text-center">
+                                    <span class="logo-lg">
+                                        <img src="{% static 'images/logo-light.png' %}" alt="" height="22">
+                                    </span>
+                                </a> -->
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="mt-4">
+                                <div class="logout-checkmark">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                        <circle class="path circle" fill="none" stroke="#4bd396" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                                        <polyline class="path check" fill="none" stroke="#4bd396" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <h3>See you again !</h3>
+
+                            <p class="text-muted"> You are now successfully sign out. </p>
+                        </div>
+
+                        <!-- Footer-->
+                        <footer class="footer footer-alt">
+                            <p class="text-muted">Back to <a href="{% url 'auth_login' %}" class="text-muted ml-1"><b>Sign In</b></a></p>
+                        </footer>
+
+                    </div> <!-- end .card-body -->
+                </div> <!-- end .align-items-center.d-flex.h-100-->
+            </div>
+<style type="text/css">
+.auth-fluid {
+    background: url(../../../../static/images/bg-auth.jpg) center;
+    background-size: cover;
+}
+.auth-fluid .auth-fluid-right{
+    background-color: unset;
+}
+.auth-fluid .auth-fluid-form-box{
+    /*background-color: unset;*/
+}
+.text-muted {
+    color: #39424b!important;
+}
+.footer {
+    bottom: 200px;
+}
+
+</style>
+{% endblock %}

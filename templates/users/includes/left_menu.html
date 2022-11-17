@@ -1,0 +1,238 @@
+{% load static %} 
+<div class="left-side-menu">
+
+                <div class="h-100" data-simplebar>
+
+                    <!-- User box -->
+                    <div class="user-box text-center">
+                        <img src="{% static 'images/users/user-1.jpg' %}" alt="user-img" title="Mat Helme"
+                            class="rounded-circle avatar-md">
+                        <div class="dropdown">
+                            <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+                                data-toggle="dropdown">Geneva Kennedy</a>
+                            <div class="dropdown-menu user-pro-dropdown">
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-user mr-1"></i>
+                                    <span>My Account</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-settings mr-1"></i>
+                                    <span>Settings</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-lock mr-1"></i>
+                                    <span>Lock Screen</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-log-out mr-1"></i>
+                                    <span>Logout</span>
+                                </a>
+
+                            </div>
+                        </div>
+                        <p class="text-muted">Admin Head</p>
+                    </div>
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+
+                        <ul id="side-menu">
+
+                            <li>
+                                <a href="{% url 'dashboard' %}">
+                                    <i data-feather="airplay"></i>
+                                    <span> Dashboard </span>
+                                </a>
+                            </li>
+                           {% if current_user.is_superuser %}
+                            <li>
+                                <a href="#sidebarEcommerce" data-toggle="collapse">
+                                    <i data-feather="shopping-cart"></i>
+                                    <span> Masters </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarEcommerce">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{% url 'users:create_software_version' %}">Software Version</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_business_types' %}">Business Type</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_software_plan' %}">Software Plan</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_product' %}">Products</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_service' %}">Services</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_currency' %}">Currency</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_period' %}">Period</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:account_group' %}">Account group</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:accountLedger' %}">Account ledger</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:customertable' %}">Customer Table</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:companies' %}">Companies</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:company_products' %}">Company Products</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:company_devices' %}">Company Device</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_users' %}">Users List</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:e_invoice_list' %}">E Invoices </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#sidebarCrm" data-toggle="collapse">
+                                    <i data-feather="users"></i>
+                                    <span> Transaction </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarCrm">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{% url 'users:list_reciept' %}">Reciepts</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_payment' %}">Payments</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_master' %}">Sales</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_stock_order' %}">Stock Order</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_sale_products' %}">Sale Products</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_sale_price' %}">Sale Price</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:list_sale_account_ledger' %}">Sale Account Ledger</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_warehouse_stock' %}">Warehouse Stock</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:list_expence_ledger' %}">Expence Ledger</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:list_last_sale_price' %}">Last Sale Price</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:list_sale_route' %}">Sale Routes</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_transaction_type' %}">Transaction Types</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_van_route' %}">Van Routes</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_van_settings' %}">Van Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_sale_returns' %}">Sale Returns</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_sale_order' %}">Sale Orders</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:list_bill_wise' %}">Bill Wise</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'users:list_user_device_details' %}">User Device Details</a>
+                                        </li>
+                                        <!-- <li>
+                                            <a href="{% url 'web:create_version' %}">Build Version</a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                               
+                            </li>
+
+
+                            <li>
+                                <a href="#sidebarCrm1" data-toggle="collapse">
+                                    <i data-feather="users"></i>
+                                    <span> Report </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarCrm1">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{% url 'users:company_product_report' %}">Company Product Report</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'web:company_list' %}">Company list</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'web:company_device_list' %}">Company Device list</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'web:activity_logs' %}">Activity Logs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {% else %}
+                             <li>
+                                <a href="#sidebarCrm1" data-toggle="collapse">
+                                    <i data-feather="users"></i>
+                                    <span> Companies </span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <div class="collapse" id="sidebarCrm1">
+                                    <ul class="nav-second-level">
+                                        <li>
+                                            <a href="{% url 'users:user_companies' %}">Companies</a>
+                                        </li>
+                                         <li>
+                                            <a href="{% url 'users:e_invoice_list' %}">E Invoices </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>

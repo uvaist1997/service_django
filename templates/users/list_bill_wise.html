@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+{% load el_pagination_tags %}
+
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                                <li class="breadcrumb-item active">{{title}}</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">{{title}}</h4>
+                    </div>
+                </div>
+            </div>     
+            <!-- end page title --> 
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                
+                                <div class="customer-status col-md-2">     
+                                    <label>Users</label>        
+
+                                         <select id="id_user" class="selectize1">
+
+                                            {% for i in context_user_instance %}
+                                            <option value = "{{i.id}}" >{{i.username}}</option>
+                                            {% endfor %} 
+                                        </select>                                                     
+                                </div>        
+                                <div class="customer-status col-md-2">     
+                                    <label>Companies</label>         
+
+                                     <select id="id_company" class="selectize1">
+
+                                        {% for i in company_instance %}
+                                        <option value = "{{i.id}}" >{{i.CompanyName}}</option>
+                                        {% endfor %} 
+                                    </select>                                                     
+                                </div>        
+                                <div class="row align-items-center col-md-2">
+                                   <!-- Large modal -->
+                                    <button type="button" id="button-submit" class="btn btn-blue" data-toggle="modal" data-target="#bs-example-modal-lg">Submit</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                {% if user_view %}
+                                <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>CompanyProductId</th>
+                                            <th>Date</th>
+                                            <th>VanId</th>
+                                            <th style="width: 82px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {% paginate user_view %}
+                                    {% for instance in user_view %}
+                                    
+                                        <tr>
+                                            <td>
+                                                {{ forloop.counter}}
+                                            </td>
+                                            <td>
+                                                {{ instance.CompanyProductId }}
+                                            </td>
+                                            <td>
+                                                {{ instance.Date }}
+                                            </td>
+                                            <td>
+                                                {{ instance.VanId }}
+                                            </td>
+                                            <td>
+                                                <!-- <a href="{% url 'users:list_details' pk=instance.pk %}" class="action-icon"> <i class="mdi mdi-eye"></i></a> -->
+                                                <a data-id="" href="{% url 'users:delete_bill_wise' pk=instance.pk %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-icon action-button remove"> <i class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--pagination -->
+                <div class="bootgrid-footer container-fluid" id="data-table-selection-footer">
+                    {% get_pages %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="pagination">
+                                {% show_pages %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 infoBar">
+                            <div class="infos">
+                                Showing {{title}} <span class="current_page_index">{{ pages.current_start_index }}</span> - <span class="current_end_status">{{ pages.current_end_index }}</span> of <span class="total_count">{{ pages.total_count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--pagination-->
+                {% else %}
+                                    <p style="display: flex;justify-content: center;">Data Not Found</p>
+                                    {% endif %}
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+            
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+        <input id="hidden_user" type="hidden" value="{{userid}}" data-name="{{comp_name}}" name="">
+    <input id="hidden_company" type="hidden" value="{{company}}" data-name="{{comp_name}}" name="">
+{% endblock %}
+
+{% block static %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.selectize1').selectize({});
+
+        var comp = $("#hidden_company").val()
+        var comp_name = $("#hidden_company").attr("data-name")
+        var user = $("#hidden_user").val()
+        var comp_text = $("#hidden_user").text()
+        var element = $('#id_company').selectize({});
+        var element1 = $('#id_user').selectize({});
+        var selectize = element[0].selectize
+        var selectize1 = element1[0].selectize
+        console.log(comp_text,"comp_text===")
+        // selectize.clear();
+        // selectize.clearOptions();
+        // selectize.addOption({value:"Not Found",text:"Not Found"})
+        selectize1.setValue(user);
+        // selectize.setValue(comp);
+
+     });
+
+
+    function get_user_companies($parent){
+    console.log('POOOOOOOOOOOO')
+        var url = "{% url 'users:get_user_companies' %}"
+        var user_id = $("#id_user").val();
+        var $parent = $parent
+        // var $parent = element.parents('tr.form_set_row');
+        if (user_id != undefined || user_id != null || user_id != ""){
+            $.ajax({
+                type : "GET",
+                url : url,
+                dataType : 'json',
+                data : {
+                    id : user_id,
+                },
+                success : function(data){
+                    var status = data['status'];
+                    if(status=='true'){
+                        var customer_select = data['customer_select'];
+                        $("#id_company").html(customer_select)
+                        console.log(customer_select,"success")
+
+                        var options = '<option value="">---------</option>'
+
+
+                        options = `<option value="inter_state">Inter State</<option>`
+                        test = `<div class="option" data-selectable="" data-value="1">Moooooooo</div>`
+                        // var element = $("#id_company").selectize({});
+                        // var selectize = element[0].selectize
+                        //  console.log(selectize,"true===")
+                        // console.log(element[0].selectize)
+
+                        var $select = $('#id_company').selectize();
+                         var selectize = $select[0].selectize;
+                         // selectize.clear();
+                        
+                        option_arr = []
+
+                        selectize.clear();
+                        selectize.clearOptions();
+                        for (var i = customer_select.length - 1; i >= 0; i--) {
+                            console.log(customer_select[i]['name'],'name')
+                            option_dict ={
+                                "id" : customer_select[i]['id'],
+                                "title" : customer_select[i]['name'],
+                            }
+                            selectize.addOption({value:customer_select[i]['id'],text:customer_select[i]['name']})
+                            option_arr.push(option_dict)
+                        }
+                            console.log(option_arr,'option_arr')
+                      
+
+                    }else{
+                        var element = $('#id_company').selectize({});
+                        var selectize = element[0].selectize
+                        console.log(element,"false===")
+                        selectize.clear();
+                        selectize.clearOptions();
+                        selectize.addOption({value:"",text:"Not Found"})
+                        selectize.setValue("Not Found");
+                    }
+                },
+                error : function(data){
+
+                }
+            })     
+    }
+        }
+    $(document).on('click', '#button-submit', function(){
+        var id_company = $('#id_company').val();
+        var id_user = $('#id_user').val();
+        console.log(id_user,id_company,"WWWWWWWWWWWW")
+        if (id_company && id_user && id_user != 0) {
+        console.log(id_user,id_company,"@@@@@@@@@@")
+
+        var url = "{% url 'users:list_bill_wise' %}?"+"user="+id_user+"&company="+id_company+""
+        window.location.href = url;
+        }
+        else{
+            console.log("ERROR")
+        }
+    });
+
+     $(document).on('change', '#id_user', function(){
+        var id_user = $('#id_user');
+        get_user_companies(id_user)
+
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+    <thead>
+       <tr>
+        <th>#</th>
+        <th>Log Type</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Message</th>
+        <th>Description</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+{% for instance in instances %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {{ instance.log_type }}
+        </td>
+        <td>
+            {{ instance.date }}
+        </td>
+        <td>
+            {{ instance.time}}
+        </td>
+        <td>
+            {{ instance.message}}
+        </td>
+         <td>
+            {{ instance.description}}
+        </td>
+
+    </tr>
+{% endfor %}                                       
+
+
+    </tbody>

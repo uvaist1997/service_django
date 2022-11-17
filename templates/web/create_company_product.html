@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-page" {% if is_superuser %} style="margin-left: 0;" {% endif %}>
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
+                                <li class="breadcrumb-item active">{{title}}</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">{{ title }}</h4>
+                    </div>
+                </div>
+            </div>     
+            <!-- end page title --> 
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="w-100 text-right">
+                                        <a title="Set ProductExpiryDate To Company Device" data-id="" href="{% url 'web:exp_date_is_trail_company_device' pk=instance.id %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-icon action-button remove"> <i class="mdi mdi-cog"></i></a>
+                                    </div>
+                                    <form enctype="multipart/form-data" method="post" action="" class="ajax reset redirect ahs-input" novalidate>
+                                        {% csrf_token %}
+                                        {% if is_edit == True %}
+                                        <label>Created Date  :  {{instance.date_added}}</label>
+                                        {% endif %}
+                                        {% for form_data in form %}
+                                        <div class="form-group mb-3">
+                                            {{ form_data.label }}
+                                            {{ form_data }}
+                                        </div>
+                                        {% endfor %}
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </form>
+
+                                </div> <!-- end col-->
+                            </div>
+                            <!-- end row -->
+
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+            </div>
+            <!-- end row-->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+     
+
+                        <div class="table-responsive mt-4">
+                            <table class="table table-bordered table-centered mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>DeviceName</th>
+                                        <th>DeviceCode</th>
+                                        <!-- <th>IsTrialVersion</th> -->
+                                        <th>IsTrialVersion</th>
+                                        <!-- <th>ProductExpiryDate</th> -->
+                                        <th>ProductExpiryDate</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                        <th>#</th>
+                                
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in device_instances %}
+                                    <tr class="form_set_row">
+
+                                        <td>{{i.DeviceName}}</td>
+                                        <td>{{i.DeviceCode}}</td>
+                                        <!-- <td class="default_IsTrialVersion">{{i.IsTrialVersion}}</td> -->
+                                        <td class="is_trail text-center">
+                                            <div class="default_IsTrialVersion">
+                                                {{i.IsTrialVersion}}
+                                            </div>
+                                            <input type="checkbox" name="" class="IsTrialVersion_val form" placeholder="IsTrialVersion" >
+                                        </td>
+                                        <td class="exp_date">
+                                            <div class="default_ProductExpiryDate">{{i.ProductExpiryDate}}</div>
+                                            <input type="date" name="service_date" class="ProductExpiryDate_val form-control form" placeholder="Service Date" id="id_service_date">
+                                        </td>
+                                        <td>{{i.Type}}</td>
+                                        <td>{{i.Action}}</td>
+                                        <td><div class="btn-group btn-group-sm" style="float: none;"><button data-id="{{i.id}}" type="button" class="device_instances tabledit-edit-button btn btn-success" style="float: none;"><span class="mdi mdi-pencil"></span></button></div></td>                    
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+            </div>
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+{% endblock %}
+
+{% block static %}
+<style type="text/css">
+    .ProductExpiryDate_val{
+        display: none;
+    }
+    .IsTrialVersion_val{
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+    console.log("DDDDDDDDDDDD")
+
+     $(document).on('keyup change', 'input.ProductExpiryDate_val', function(){
+        var date = $(this).val();    
+        console.log("TTTTTTTTTTTTTTT")
+        get_update_company_device($(this),'is_date')      
+
+    });
+    $(document).on('keyup change', 'input.IsTrialVersion_val', function(){
+        var is_trail = $(this).prop("checked");    
+        console.log(is_trail,"sssssssssssss")
+        get_update_company_device($(this),'is_trail')      
+
+    });
+    $(document).on('click', '.device_instances', function(){
+        var $this = $(this)
+        console.log($this)
+        get_company_device($this)
+
+
+    });
+
+ function get_company_device($this) {
+        
+        var id_device = $this.attr('data-id')
+        console.log(id_device,'GT',id_device,'GT')
+        var url = "{% url 'web:get_company_device' %}"
+        if (id_device != '' && id_device != null && id_device != '' && id_device != null) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                data: {
+                    id: id_device,
+                },
+                success: function(data) {
+                    var status = data['status'];
+                    if (status == "true") {
+                        var ProductExpiryDate = ""
+                        if (data['ProductExpiryDate']){
+                            ProductExpiryDate = data['ProductExpiryDate'].split(" ")[0];
+                        }
+
+                        var IsTrialVersion = data['IsTrialVersion'];
+                        var $parent = $this.parents('.form_set_row');
+
+                        // css jquery
+                        $parent.find('td.is_trail .IsTrialVersion_val').css("display","inline-block")
+                        $parent.find('td.exp_date .ProductExpiryDate_val').css("display","inline-block")
+
+                        $parent.find('td.is_trail .default_IsTrialVersion').css("display","none")
+                        $parent.find('td.exp_date .default_ProductExpiryDate').css("display","none")
+                        
+
+
+                        $parent.find('td.exp_date .ProductExpiryDate_val').val(ProductExpiryDate);
+                        console.log(ProductExpiryDate)
+                        if (IsTrialVersion == true){
+                            // $('.IsTrialVersion_val').attr("checked",'checked');
+                            $parent.find('td.is_trail .IsTrialVersion_val').attr("checked",true);
+                        }else{
+                            $parent.find('td.is_trail .IsTrialVersion_val').attr("checked",false);
+
+                        }
+                    } else {
+                        console.log('kkk')
+                       $parent.find('td.is_trail .IsTrialVersion_val').css("display","none")
+                        $parent.find('td.exp_date .ProductExpiryDate_val').css("display","none")
+                    }
+                },
+                error: function(data) {
+                }
+            });
+        }
+    }
+
+ function get_update_company_device($this,attr) {
+    var $parent = $this.parents('.form_set_row');
+    
+    var date = ""
+    var is_trail = ""
+        if(attr == "is_date"){
+            date = $this.val();
+        }else if(attr == "is_trail"){
+            is_trail = $this.prop("checked");
+
+        }
+        var id_device = $parent.find('.device_instances').attr("data-id");
+        console.log(is_trail,'is_trail',date,'date')
+        var url = "{% url 'web:get_update_company_device' %}"
+        if (id_device != '' && id_device != null && id_device != '' && id_device != null) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                data: {
+                    id: id_device,
+                    date: date,
+                    is_trail: is_trail,
+                },
+                success: function(data) {
+                    var status = data['status'];
+                    if (status == "true") {
+                       console.log("*********************")
+                    } else {
+                        console.log('kkk')
+                        var nothing_found = "<p class='text-center p-30'>Not found</p>";
+                        $('#order_report').html(nothing_found);
+                    }
+                },
+                error: function(data) {
+                }
+            });
+        }
+    }
+</script>
+        {% endblock %}

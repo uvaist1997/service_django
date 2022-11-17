@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                                <li class="breadcrumb-item active">{{title}}</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">{{title}}</h4>
+                    </div>
+                </div>
+            </div>     
+            <!-- end page title --> 
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="row mb-2">
+                                <div class="col-md-12">
+                                   <!--  <div class="text-md-right">
+                                        <a href="{% url 'users:edit_product' pk=instance.id %}" class="btn btn-info waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-pencil mr-1"></i>Edit {{title}}</a>
+
+                                        <a data-id="{{instance.pk}}" href="{% url 'users:delete_product' pk=instance.id %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-button remove btn btn-info waves-effect waves-light mb-2 mr-2 redirect"><i class="mdi mdi-delete mr-1"></i>Delete {{title}}</a>
+
+                               
+
+                                    </div> -->
+                                </div><!-- end col-->
+                            </div>
+                    
+                        <div class="table-responsive mt-4">
+                            <table class="table table-bordered table-centered mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>{{ instance.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>VanSaleRoundoff</td>
+                                        <td>{{ instance.VanSaleRoundoff }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UserID</td>
+                                        <td>{{ instance.UserID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UserName</td>
+                                        <td>{{ instance.UserName }}</td>
+                                    </tr>
+                                   
+
+
+                                    <tr>
+                                        <td>CashAccountID</td>
+                                        <td>{{ instance.CashAccountID }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Allow_Receipt_Discount</td>
+                                        <td>{{ instance.Allow_Receipt_Discount }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>BankAccountID</td>
+                                        <td>{{ instance.BankAccountID }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>PriceCategoryID</td>
+                                        <td>{{ instance.PriceCategoryID }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>sales_account</td>
+                                        <td>{{ instance.sales_account }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Device_Code</td>
+                                        <td>{{ instance.Device_Code }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>sales_return_account</td>
+                                        <td>{{ instance.sales_return_account }}</td>
+                                    </tr>
+
+
+                                     <tr>
+                                        <td>VatSalesType</td>
+                                        <td>{{ instance.VatSalesType }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>VanId</td>
+                                        <td>{{ instance.VanId }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>WarehouseId</td>
+                                        <td>{{ instance.WarehouseId }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>VanName</td>
+                                        <td>{{ instance.VanName }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>VoucherPrefix</td>
+                                        <td>{{ instance.VoucherPrefix }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>DiscountPercentPerBill</td>
+                                        <td>{{ instance.DiscountPercentPerBill }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>CashBalance</td>
+                                        <td>{{ instance.CashBalance }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>ShowNegativeStockItem</td>
+                                        <td>{{ instance.ShowNegativeStockItem }}</td>
+                                    </tr>
+                                    
+                                     <tr>
+                                        <td>CanEditUnitPrice</td>
+                                        <td>{{ instance.CanEditUnitPrice }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>AllowBillDiscount</td>
+                                        <td>{{ instance.AllowBillDiscount }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Allow_Sales_Below_Min_Sales_Price</td>
+                                        <td>{{ instance.Allow_Sales_Below_Min_Sales_Price }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>AllowNegativeStockSale</td>
+                                        <td>{{ instance.AllowNegativeStockSale }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Allow_Sales_Below_Purchase_Price</td>
+                                        <td>{{ instance.Allow_Sales_Below_Purchase_Price }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>AllowItemwiseDiscount</td>
+                                        <td>{{ instance.AllowItemwiseDiscount }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>ShowSalesType</td>
+                                        <td>{{ instance.ShowSalesType }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Allow_Cash_Sales</td>
+                                        <td>{{ instance.Allow_Cash_Sales }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Show_Last_Sales_Price</td>
+                                        <td>{{ instance.Show_Last_Sales_Price }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Show_Inclusive_Field</td>
+                                        <td>{{ instance.Show_Inclusive_Field }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Show_Cost_In_Stock_Order</td>
+                                        <td>{{ instance.Show_Cost_In_Stock_Order }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>StockOrderWarehouseFromId</td>
+                                        <td>{{ instance.StockOrderWarehouseFromId }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Sales_Invoice_Edit</td>
+                                        <td>{{ instance.Sales_Invoice_Edit }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Sales_price_lessthan_Purchase_price</td>
+                                        <td>{{ instance.Sales_price_lessthan_Purchase_price }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>PriceDecimalPoint</td>
+                                        <td>{{ instance.PriceDecimalPoint }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>QtyDecimalPoint</td>
+                                        <td>{{ instance.QtyDecimalPoint }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+            </div>
+                
+            <!-- end row-->
+            
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+{% endblock %}

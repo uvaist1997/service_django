@@ -1,0 +1,34 @@
+    <thead>
+       <tr>
+        <th>#</th>
+        <th>Product Name</th>
+        <th>No ofDevice</th>
+        <th>Product Expiry Date</th>
+        <th>IsTrialVersion</th>
+    </tr>
+    </thead>
+
+    <tbody>
+{% for instance in product_instances %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {{ instance.ProductId.Name }}
+        </td>
+        <td>
+            {{ instance.No_ofDevice }}
+        </td>
+        <td>
+            {{ instance.ProductExpiryDate}}
+        </td>
+        <td>
+            {{ instance.IsTrialVersion}}
+        </td>
+
+    </tr>
+{% endfor %}                                       
+
+
+    </tbody>

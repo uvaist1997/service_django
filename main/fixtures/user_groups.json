@@ -1,0 +1,23 @@
+[
+	{
+		"model": "auth.group",
+		"pk": 1,
+		"fields": {
+			"name": "customer_user"
+		}
+	},
+	{
+		"model": "auth.group",
+		"pk": 2,
+		"fields": {
+			"name": "vendor_user"
+		}
+	},
+	{
+		"model": "auth.group",
+		"pk": 2,
+		"fields": {
+			"name": "administrator"
+		}
+	}
+]

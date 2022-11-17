@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                                <li class="breadcrumb-item active">{{title}}</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">{{title}}</h4>
+                    </div>
+                </div>
+            </div>     
+            <!-- end page title --> 
+            <h3>Master</h3>
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Voucher No</th>
+                            <th>Date</th>
+                            <th>User</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for instance in user_view %}
+                    
+                        <tr>
+                            <td>
+                                {{ instance.Voucher_No }}
+                            </td>
+                            <td>
+                                {{ instance.Date }}
+                            </td>
+                            <td>
+                                {{ instance.User }}
+                            </td>
+                            <td>
+                                {{ instance.customer }}
+                            </td>
+                            <td>
+                                {{ instance.total_amount }}
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <h3>Details</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-centered table-nowrap table-borderless table-hover mb-0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Plan</th>
+                                            <th>Year</th>
+                                            <th>Price</th>
+                                            <th>No Of Devices</th>
+                                            <th style="width: 82px;">£</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for instance in userone_view %}
+                                        <tr>
+                                            <td>
+                                                {{ instance.Product }}
+                                            </td>
+                                            <td>
+                                                {{ instance.Plan }}
+                                            </td>
+                                            <td>
+                                                {{ instance.Year }}
+                                            </td>
+                                            <td>
+                                                {{ instance.Price }}
+                                            </td>
+                                            <td>
+                                                {{ instance.NoOfDevices }}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'users:edit_details' pk=instance.pk %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                <a data-id="" href="{% url 'users:delete_details' pk=instance.pk %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-icon action-button remove"> <i class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+            
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "registration/auth_base.html" %}
+{% load i18n %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+<div class="l-block toggled" id="l-login">
+    <div class="lb-header palette-Blue bg">
+        <i class="zmdi zmdi-account-circle"></i>
+        Hi there! Please Register Here
+    </div>
+
+    <div class="lb-body">
+    	{% if form.non_field_errors %}
+	    	<div class="palette-Red-500 text m-b-20">	    	
+				{{form.non_field_errors}}			
+			</div>
+			<br />
+		{% endif %}
+		
+    	<form class="ajax" action="{% url 'web:register' %}" method="post">
+    		{% csrf_token %} 
+    			{{ form.username }}
+    			{{ form.first_name }}
+    			{{ form.last_name }}
+    			{{ form.email }}
+    			{{ form.password1 }}
+    			{{ form.password2 }}
+
+    			       
+		<!--  #company_name -->
+	        <div class="form-group fg-float">
+	            <div class="fg-line">
+	                <input name="CompanyName" value="{{ reg_form.CompanyName.value|default:""}}" type="text" class="input-sm form-control fg-input">
+	                <label class="fg-label">Company Name</label>
+	            </div>
+	            {% if form.CompanyName.errors %}
+		            <span class="error">{{ form.CompanyName.errors.as_text }}</span>
+		        {% endif %}
+	        </div>
+	        
+
+	       	<!-- Country -->
+	       	<div class="form-group fg-float">
+	            <div class="fg-line">
+	                <input name="Country" value="{{ reg_form.Country.value|default:""}}" type="text" class="input-sm form-control fg-input">
+	                <label class="fg-label">Country</label>
+	            </div>
+	            {% if reg_form.Country.errors %}
+		            <span class="error">{{ reg_form.Country.errors.as_text }}</span>
+		        {% endif %}
+	        </div>
+	    <!-- state -->
+	    	<div class="form-group fg-float">
+	            <div class="fg-line">
+	                <input name="State" value="{{ reg_reg_form.State.value|default:""}}" type="text" class="input-sm form-control fg-input">
+	                <label class="fg-label">State</label>
+	            </div>
+	            {% if reg_form.State.errors %}
+		            <span class="error">{{ reg_form.State.errors.as_text }}</span>
+		        {% endif %}
+	        </div>
+
+	    <!-- Phone number -->
+	    	<div class="form-group fg-float">
+	            <div class="fg-line">
+	                <input name="PhoneNumber" value="{{ reg_reg_form.PhoneNumber.value|default:""}}" type="text" class="input-sm form-control fg-input">
+	                <label class="fg-label">PhoneNumber</label>
+	            </div>
+	            {% if reg_form.PhoneNumber.errors %}
+		            <span class="error">{{ reg_form.PhoneNumber.errors.as_text }}</span>
+		        {% endif %}
+	        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	        <input type="hidden" name="next" value="{{ next }}" />
+	        
+	        <button type="submit" class="btn palette-Blue bg">Register</button>
+		</form>
+        <div class="m-t-20">
+            <a  class="palette-Blue text" href="{% url 'auth_login' %}">Already have an account?</a>
+        </div>
+    </div>
+</div>  
+{% endblock %}
+
+{% block static %}
+<script>
+	
+	// $(document).ready(function(){
+	// 	$('div.login').attr('data-lbg','blue');
+	// });
+</script>
+{% endblock %}

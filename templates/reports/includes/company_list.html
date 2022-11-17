@@ -1,0 +1,52 @@
+    {% load main_template_tags %}
+    <thead>
+       <tr>
+        <th>#</th>
+        <th>Comapny Name</th>
+        <th>Business Type</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Country</th>
+        <th>IsTrialVersion True</th>
+        <th>IsTrialVersion False</th>
+        <th>##</th>
+    </tr>
+    </thead>
+
+    <tbody>
+{% for instance in instances %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        <td>
+            {{ instance.CompanyName }}
+        </td>
+        <td>
+            {{ instance.business_type.Name }}
+        </td>
+        <td>
+            {{ instance.Email}}
+        </td>
+        <td>
+            {{ instance.OfficePhoneNumber}}
+        </td>
+         <td>
+            {{ instance.Country}}
+        </td>
+         <td>
+            {{ instance|IsTrialVersion_True}}
+        </td>
+
+         <td>
+            {{ instance|IsTrialVersion_False}}
+        </td>
+        <td>
+             <a data-id="" href="{% url 'web:delete_company_list' pk=instance.pk %}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" class="action-icon action-button remove"> <i class="mdi mdi-delete"></i></a>
+        </td>
+
+    </tr>
+{% endfor %}                                       
+
+
+    </tbody>

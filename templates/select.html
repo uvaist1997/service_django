@@ -1,0 +1,21 @@
+<!-- <select name="delivery_details_formset-1-CustomerName" placeholder="CustomerName" class="form-control required selectized" id="id_delivery_details_formset-1-CustomerName" tabindex="-1" style="display: none;">
+	{% for i in instances %}
+	<option value='{{i.id}}' selected="selected">{{i.name}}</option>
+	{% endfor %}
+</select> -->
+
+
+
+<div class="selectize-control js-example-basic-single form-control required single">
+   <div class="selectize-input items full has-options has-items">
+      <div class="item" data-value="3">Mepady</div>
+      <input type="select-one" autocomplete="off" tabindex="" id="id_Route-selectized" style="width: 4px; opacity: 0; position: absolute; left: -10000px;">
+   </div>
+   <div class="selectize-dropdown single js-example-basic-single form-control required" style="display: none; width: 275.5px; top: 37.4px; left: 0px; visibility: visible;">
+      <div class="selectize-dropdown-content">
+         <div class="option" data-selectable="" data-value="1">Muttil</div>
+         <div class="option" data-selectable="" data-value="2">Kalpetta</div>
+         <div class="option selected" data-selectable="" data-value="3">Mepady</div>
+      </div>
+   </div>
+</div>
